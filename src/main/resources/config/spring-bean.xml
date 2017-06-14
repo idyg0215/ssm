@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    	http://www.springframework.org/schema/beans/spring-beans.xsd
+    	http://www.springframework.org/schema/context
+    	http://www.springframework.org/schema/context/spring-context.xsd">
+        
+	<context:component-scan base-package="ssm">
+    	<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>  
+    
+    <!-- 加载并读取数据库连接的配置文件 -->
+    <context:property-placeholder location="classpath:db.properties"/>
+    
+    <!-- 数据源的配置 -->
+    <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
+    	<property name="driverClassName" value="${driverClass}"></property>
+    	<property name="url" value="${jdbcUrl}"></property>
+    	<property name="username" value="${username}"></property>
+    	<property name="password" value="${password}"></property>
+    </bean>
+    
+    <!-- 配置mybatis会话工厂 -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+    	<property name="dataSource" ref="dataSource"></property>
+    	
+    	<!-- 配置mybatis的映射文件 -->
+    	<property name="mapperLocations" value="classpath:mappers/*Mapper.xml"></property>
+    	
+    	<!-- 配置实体类的别名 ,在*Mapper.xml  parameterType就不用写全路径了-->
+    	<property name="typeAliasesPackage" value="com.yc.ssm.beans"></property>
+    </bean>
+    
+    <!-- 配置mybatis映射接口的代理实现类：bean的名称与映射接口名的首字母小写-->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.yc.ssm.mappers"></property>
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
+	</bean>    
+</beans>
