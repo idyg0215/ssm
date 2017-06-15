@@ -30,7 +30,7 @@
     	<property name="mapperLocations" value="classpath:mappers/*Mapper.xml"></property>
     	
     	<!-- 配置实体类的别名 ,在*Mapper.xml  parameterType就不用写全路径了-->
-    	<property name="typeAliasesPackage" value="com.yc.ssm.beans"></property>
+    	<property name="typeAliasesPackage" value="ssm.beans"></property>
     </bean>
     
     <!-- 配置mybatis映射接口的代理实现类：bean的名称与映射接口名的首字母小写-->
