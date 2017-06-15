@@ -35,7 +35,7 @@
     
     <!-- 配置mybatis映射接口的代理实现类：bean的名称与映射接口名的首字母小写-->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="com.yc.ssm.mappers"></property>
+		<property name="basePackage" value="ssm.mappers"></property>
 		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
 	</bean>    
 </beans>
